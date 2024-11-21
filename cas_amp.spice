@@ -1,0 +1,36 @@
+* SPICE3 file created from cas_amp.ext - technology: scmos
+
+.model pfet pmos level=49 version=3.3.0
+.model nfet nmos level=49 version=3.3.0
+
+.option scale=0.09u
+
+M1000 vout Vb2 vdd vdd pfet w=72 l=2
++  ad=360 pd=154 as=1080 ps=462
+M1001 a_62_24# vb3 vout Gnd nfet w=24 l=2
++  ad=240 pd=116 as=120 ps=58
+** SOURCE/DRAIN TIED
+M1002 vdd vb1 vdd vdd pfet w=72 l=2
++  ad=0 pd=0 as=0 ps=0
+M1003 gnd vin a_62_24# Gnd nfet w=24 l=2
++  ad=120 pd=58 as=0 ps=0
+C0 vdd Gnd 6.46fF
+
+Cl vout Gnd 1p
+
+
+Vin vin Gnd sin(0.530mV 0.01v 100khz)
+vdd vdd Gnd DC 1.8V
+vbias1 vb1 Gnd DC 1.6V
+vbias2 vb2 Gnd DC 650mv
+vbias3 vb3 Gnd DC 1.4V
+
+.op
+.tran 100p 100u
+.control 
+run
+
+plot vout
+plot vin
+.endc
+.end
